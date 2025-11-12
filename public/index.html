@@ -1,0 +1,151 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/Product">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=Utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="dist/qrcode.js"></script>
+  <script type="text/javascript" src="dist/qrcode_UTF8.js"></script>
+  <link rel="stylesheet" href="assets/style.css" type="text/css" />
+  <title itemprop="name">QR Code Generator with Tracking</title>
+</head>
+
+<body onload="body_loadHandler()">
+
+<div class="container">
+  <header class="page-header">
+    <h1>📲 QR Code Generator</h1>
+    <p class="subtitle">Create custom QR codes with optional scan tracking</p>
+  </header>
+
+  <div class="main-content">
+    <!-- Generator Section -->
+    <div class="generator-card">
+      <form name="qrForm">
+        <div class="form-group">
+          <label for="msg">Content</label>
+          <textarea id="msg" name="msg" rows="6" placeholder="Enter your text, URL, or message here...">https://github.com</textarea>
+        </div>
+
+        <!-- NEW: Tracking Toggle -->
+        <div class="form-group">
+          <label style="display: flex; align-items: center; cursor: pointer;">
+            <input type="checkbox" id="useTracking" name="useTracking" style="width: auto; margin-right: 10px;">
+            <span>Enable scan tracking (requires server)</span>
+          </label>
+          <small style="color: var(--text-secondary); display: block; margin-top: 5px;">
+            When enabled, QR code scans will be tracked and you'll get a redirect URL
+          </small>
+        </div>
+
+        <div class="settings-grid">
+          <div class="form-group">
+            <label for="t">Type Number</label>
+            <select id="t" name="t"></select>
+          </div>
+
+          <div class="form-group">
+            <label for="e">Error Correction</label>
+            <select id="e" name="e">
+              <option value="L">L (7%)</option>
+              <option value="M" selected="selected">M (15%)</option>
+              <option value="Q">Q (25%)</option>
+              <option value="H">H (30%)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="m">Mode</label>
+            <select id="m" name="m">
+              <option value="Numeric">Numeric</option>
+              <option value="Alphanumeric">Alphanumeric</option>
+              <option value="Byte" selected>Byte</option>
+              <option value="Kanji">Kanji</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="mb">Encoding</label>
+            <select id="mb" name="mb">
+              <option value="default">None</option>
+              <option value="SJIS">SJIS</option>
+              <option value="UTF-8" selected>UTF-8</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="button" class="btn-primary" onclick="update_qrcode()">
+          Generate QR Code
+        </button>
+      </form>
+    </div>
+
+    <!-- QR Code Display Section -->
+    <div class="qr-display-card">
+      <h2>Your QR Code</h2>
+      <div id="qr" class="qr-container"></div>
+      
+      <!-- NEW: Stats Section -->
+      <div class="stats-section" id="statsSection" style="display: none;">
+        <h3>📊 Tracking Info</h3>
+        <div id="trackingInfo" class="tracking-info"></div>
+      </div>
+      
+      <div class="download-section" id="downloadSection" style="display: none;">
+        <h3>Download Options</h3>
+        <div class="download-grid">
+          <button class="btn-download" onclick="downloadQR(256)">
+            <span class="size-label">Small</span>
+            <span class="size-desc">256×256px</span>
+          </button>
+          <button class="btn-download" onclick="downloadQR(512)">
+            <span class="size-label">Medium</span>
+            <span class="size-desc">512×512px</span>
+          </button>
+          <button class="btn-download" onclick="downloadQR(1024)">
+            <span class="size-label">Large</span>
+            <span class="size-desc">1024×1024px</span>
+          </button>
+          <button class="btn-download" onclick="downloadQR(2048)">
+            <span class="size-label">Extra Large</span>
+            <span class="size-desc">2048×2048px</span>
+          </button>
+        </div>
+        <button class="btn-secondary" onclick="downloadSVG()">
+          Download as SVG (Vector)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEW: Dashboard Section -->
+  <div class="info-section">
+    <details open>
+      <summary>📈 QR Code Dashboard</summary>
+      <div id="qrDashboard" class="dashboard-container">
+        <p class="loading">Loading dashboard...</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- Collapsible Info Section -->
+  <div class="info-section">
+    <details>
+      <summary>📊 Data Capacity Reference</summary>
+      <div id="dataCaps" class="data-caps-container"></div>
+    </details>
+  </div>
+
+  <footer class="page-footer">
+    <p>
+      <small>The word 'QR Code' is registered trademark of 
+      <a href="http://www.denso-wave.com/qrcode/faqpatent-e.html" target="_blank">DENSO WAVE INCORPORATED</a></small>
+    </p>
+    <p><small>Created with ❤️ by Kazuhiko Arase | Enhanced with tracking by Spooky</small></p>
+  </footer>
+</div>
+
+<script src="assets/sample.js"></script>
+
+</body>
+</html>
